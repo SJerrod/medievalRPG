@@ -3,9 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <title>MedievalRPG</title>
 </head>
-<body>
-  
-</body>
+  <body>
+    <div class="container">
+      <div class="buff-stat-buttons">
+        <button class="btn-success" id="strengthBuff">Buff Strength</button>
+        <br /><br />
+        <button class="btn-success" id="defenceBuff">Buff Defence</button>
+        <br /><br />
+        <button class="btn-success" id="intelligenceBuff">Buff Intelligence</button>
+        <br /><br />
+        <button class="btn-success" id="speedBuff">Buff Speed</button>
+        <br /><br />
+        <button class="btn-success>" id="show-target">Current Stats</button>
+      </div>
+      <h1>Character stats</h1>
+      <h3><div id="strength-stat">0</div></h3>
+      <h3><div id="defence-stat">0</div></h3>
+      <h3><div id="intelligence-stat">0</div></h3>
+      <h3><div id="speed-stat">0</div></h3>
+    </div>
+  </body>
 </html>
