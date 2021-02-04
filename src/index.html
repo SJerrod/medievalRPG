@@ -7,7 +7,18 @@
   <title>MedievalRPG</title>
 </head>
   <body>
-    <div class="container">
+    <form id="newQuest">
+      <input type="text" id="characterName" class="form-control" placeholder="Enter Name">
+      <select name="characterSelection" id="characterSelection">
+        <option hidden disabled selected value="">--Select Class--</option>
+        <option for="characterSelection" value="warrior">Warrior</option>
+        <option for="characterSelection" value="paladin">Paladin</option>
+        <option for="characterSelection" value="wizard">Wizard</option>
+        <option for="characterSelection" value="ranger">Ranger</option>
+      </select>
+      <button type="submit" class="btn btn-success">Begin Quest</button>
+    </form>
+    <div class="container" id="statBlock">
       <div class="buff-stat-buttons">
         <button class="btn-success" id="strengthBuff">Buff Strength</button>
         <br /><br />
@@ -21,7 +32,7 @@
         <br /><br />
         <button class="btn-success>" id="attack">Attack</button>
       </div>
-      <h1>Character stats</h1>
+      <h1><span id="playerName">Character</span> stats</h1>
       <h3><div id="current-action"></div></h3>
       <h3><div id="strength-stat">0</div></h3>
       <h3><div id="defence-stat">0</div></h3>

@@ -1,23 +1,45 @@
-export const storeTarget = (initialTarget) => {
+export const storeTarget = (initialTarget = {}) => {
   let currentTarget = initialTarget;
-  return (targetChangeFunction = target => target) => {
-    const newTarget = targetChangeFunction(currentTarget);
+  return (targetChangeFunction = target => target, characterName) => {
+    const newTarget = targetChangeFunction(currentTarget, characterName);
     currentTarget = {...newTarget};
     return newTarget;
   };
 };
 
-export const targetControl = storeTarget({strength: 0, defence: 0, intelligence: 0, speed: 0});
-// let warrior = {strength: 10, defence: 8, intelligence: 2, speed: 5};
-// let paladin =  {strength: 8, defence: 10, intelligence: 5, speed: 2};
-// let wizard = {strength: 2, defence: 5, intelligence: 10, speed: 8};
-// let ranger = {strength: 5, defence: 2, intelligence: 8, speed: 10};
+// export const targetControl = storeTarget({strength: 0, defence: 0, intelligence: 0, speed: 0, characterType: ""});
+export const targetControl = storeTarget();
 
+export const defaultCharacter = {strength: 0, defence: 0, intelligence: 0, speed: 0, characterType: ""};
+export const warriorStats = {strength: 10, defence: 8, intelligence: 2, speed: 5, characterType: "warrior"};
+export const paladinStats =  {strength: 8, defence: 10, intelligence: 5, speed: 2, characterType: "paladin"};
+export const wizardStats = {strength: 2, defence: 5, intelligence: 10, speed: 8, characterType: "wizard"};
+export const rangerStats = {strength: 5, defence: 2, intelligence: 8, speed: 10, characterType: "ranger"};
+
+// export const changeStats = (prop) => {
+//   return (value) => {
+//     return (target) => ({
+//       ...target,
+//       [prop] : (target[prop] || 0) + value
+//     });
+//   };
+// };
+
+// target the object applying change to
 export const changeStats = (prop) => {
   return (value) => {
+    return (target, characterName) => ({
+      ...target,
+      [characterName] : { ...target[characterName], [prop]: (target[characterName][prop] || 0) + value}
+    });
+  };
+};
+
+export const addCharacter = (defaultCharacter) => {
+  return (characterName) => {
     return (target) => ({
       ...target,
-      [prop] : (target[prop] || 0) + value
+      [characterName] : defaultCharacter
     });
   };
 };
@@ -28,11 +50,6 @@ export const defenceTraining = changeStats("defence")(5);
 export const intelligenceTraining = changeStats("intelligence")(5);
 export const speedTraining = changeStats("speed")(5);
 
-// const buffPlayerStrength = targetControl(strengthTraining)
-// const buffPlayerDefence = targetControl(defenceTraining)
-// const buffPlayerIntelligence = targetControl(intelligenceTraining)
-// const buffPlayerSpeed = targetControl(speedTraining)
-
 // composition
 export const buffTarget = (target) => {
   const obj = {
@@ -42,11 +59,6 @@ export const buffTarget = (target) => {
   };
   return obj;
 };
-
-// examples
-// const character = buffTarget("character");
-// character.buff("strength");
-// buffTarget("foobar") makes: foobar { buff() }  foobar.buff("baz")
 
 // composition
 export const hitTarget = (target) => {
@@ -70,18 +82,10 @@ export const hitTarget = (target) => {
 //   return obj;
 // };
 
-//examples
-// const enemy = hitTarget("enemy");
-// enemy.hit();
-
 // function factory
 export const buffHitTarget = (name) => {
   let target = {};
-    target.name = name;
-    target.health = 100;
+  target.name = name;
+  target.health = 100;
   return { ...target, ...buffTarget(target), ...hitTarget(target) };
 };
-
-// examples
-// const player = buffHitTarget("player");
-// console.log(player.buff("strength"));
