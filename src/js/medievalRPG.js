@@ -34,7 +34,7 @@ export const speedTraining = changeStats("speed")(5);
 // const buffPlayerSpeed = targetControl(speedTraining)
 
 // composition
-const buffTarget = (target) => {
+export const buffTarget = (target) => {
   const obj = {
     buff: (train) => {
       return `The ${target.name || target} improved its ${train} stats.`;
@@ -49,27 +49,26 @@ const buffTarget = (target) => {
 // buffTarget("foobar") makes: foobar { buff() }  foobar.buff("baz")
 
 // composition
-// const hitTarget = (target) => {
-//   const obj = {
-//     hit: () => {
-//       target.health -= 10;
-//       return `The ${target.name || target} has been hit!`;
-//     }
-//   };
-//   return obj;
-// };
-
-const hitTarget = (target) => {
+export const hitTarget = (target) => {
   const obj = {
     hit: () => {
-      const minusHealth = {
-        health: target.health - 10
-      }
-      return target = {...target, ...minusHealth}
+      return `The ${target.name || target} has been hit!`;
     }
   };
   return obj;
 };
+
+// const hitTarget = (target) => {
+//   const obj = {
+//     hit: () => {
+//       const minusHealth = {
+//         health: target.health - 10
+//       }
+//       return target = {...target, ...minusHealth}
+//     }
+//   };
+//   return obj;
+// };
 
 //examples
 // const enemy = hitTarget("enemy");
